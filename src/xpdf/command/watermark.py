@@ -1,6 +1,7 @@
 import typer
 
 from xpdf.add_watermark import add_default_watermark, add_watermark_with_output
+from xpdf.remove_watermark import RemoveWatermark
 
 # from xpdf.command.app_instance import app
 
@@ -19,3 +20,11 @@ def add(
     else:
         # default
         add_default_watermark(input_file=input, content=content)
+
+
+@app.command()
+def remove(
+    input: str = typer.Argument(..., help="input_file"),
+) -> None:
+    remover = RemoveWatermark()
+    remover.process_and_save(input)

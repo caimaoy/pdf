@@ -1,12 +1,23 @@
+"""pic.py
+
+"""
+
 import os
 from itertools import product
 
 import fitz
 
 
-class RemoveWatermark(object):
+class RemoveWatermark:
+    """RemoveWatermark remove watermark
+
+    Args:
+        object (_type_): _description_
+    """
+
     @staticmethod
     def remove_pdfwatermark():
+        """remove pdf watermark"""
         if not os.path.exists(r"PDFimages"):
             os.mkdir("PDFimages")
         path = os.path.join("PDF", os.listdir("PDF")[0])
@@ -31,10 +42,10 @@ class RemoveWatermark(object):
 
     @staticmethod
     def pictopdf():
-        # 设置路径为去除水印后的图片保存路径
+        """设置路径为去除水印后的图片保存路径"""
         pic_dir = "./PDFimages"
         pdf = fitz.open()
-        img_files = sorted(os.listdir(pic_dir), key=lambda x: int(str(x).split(".")[0]))
+        img_files = sorted(os.listdir(pic_dir), key=lambda x: int(str(x).split(".", maxsplit=1)[0]))
         for img in img_files:
             print("正在合成", img)
             imgdoc = fitz.open(pic_dir + "/" + img)
@@ -49,6 +60,7 @@ class RemoveWatermark(object):
 
 
 def main():
+    """main"""
     if not os.path.exists(r"PDFimages"):
         os.mkdir("PDFimages")
     list_ = os.listdir("PDFimages")
